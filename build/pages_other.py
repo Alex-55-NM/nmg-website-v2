@@ -2,12 +2,15 @@
 import json, os
 from layout import page, photo, esc
 
-def hero(crumb, h1, lead, pre=""):
-    return f"""<section class="page-hero"><div class="wrap"><p class="crumbs"><a href="{pre}index.html">Home</a> / {crumb}</p><h1>{h1}</h1><p class="lead">{lead}</p></div></section>"""
+def hero(crumb, h1, lead, pre="", img=None):
+    if not img:
+        return f"""<section class="page-hero"><div class="wrap"><p class="crumbs"><a href="{pre}index.html">Home</a> / {crumb}</p><h1>{h1}</h1><p class="lead">{lead}</p></div></section>"""
+    return f"""<section class="page-hero split"><div class="wrap"><div><p class="crumbs"><a href="{pre}index.html">Home</a> / {crumb}</p><h1>{h1}</h1><p class="lead">{lead}</p></div>{photo(pre, img[0], img[1], eager=True, sizes="(max-width: 900px) 100vw, 42vw")}</div></section>"""
 
 def group():
     body = hero("The Group", "One group, six companies, one way of working.",
-                "Each company has one economic job. Together they cover the route from a client’s need to delivery, without duplicating the same capability in several countries.") + """
+                "Each company has one economic job. Together they cover the route from a client’s need to delivery, without duplicating the same capability in several countries.",
+                img=("7433847", "Leadership team meeting around a boardroom table")) + f"""
 <section class="section">
   <div class="wrap">
     <div class="head"><h2>How the Group is organised</h2><p class="muted">Three layers: ownership and governance, the companies you deal with, and the delivery centres behind them.</p></div>
@@ -46,15 +49,22 @@ def group():
 </section>
 <section class="section">
   <div class="wrap">
-    <div class="head"><h2>Why the work is split this way</h2></div>
-    <div class="cols rule-top">
+    <div class="split-photo">
+    {photo("", "9301835", "Colleagues from different disciplines working together at a computer", sizes="(max-width: 900px) 100vw, 45vw")}
+    <div><h2>Why the work is split this way</h2>
+    <div class="stack-points">
       <div><h3>Close to the client</h3><p>Italy and the UAE keep relationships, language, contracts and expectations local. You have one counterpart from the first meeting to acceptance.</p></div>
       <div><h3>Capability in one place</h3><p>Software, engineering, manufacturing and trade execution are concentrated in India instead of being rebuilt in each country, which keeps quality and methods consistent.</p></div>
       <div><h3>Controlled, not offshored</h3><p>The value is not only lower cost. It is technical capability combined with commercial coordination, quality control, visibility and one accountable project lead.</p></div>
-    </div>
+    </div></div>
+  </div>
   </div>
 </section>"""
     return page("group.html", "The Group", "How Next Mind Group is organised: Holding in Cyprus, Consulting in the UAE, Solutions in Italy and three delivery centres in India.", body, current="group.html")
+
+SECTOR_PHOTOS = [("11951233", "Lathe machining a metal part"), ("37769430", "Forklift operator moving goods in a warehouse"),
+ ("34221997", "Automated production line"), ("34207359", "Industrial robot arm in a test cell"), ("33559401", "Precision machining of an engine block"),
+ ("13025947", "Stacked shipping containers at a port"), ("433308", "Solar panels and wind turbines")]
 
 SECTORS = [
  ("Industrial machinery and equipment", "Special-purpose machinery, production equipment, automation systems and assemblies.", "CAD and engineering packages, industrialisation, component production, supplier coordination, delivery abroad."),
@@ -76,14 +86,15 @@ MARKETS = [
 ]
 
 def industries():
-    sec = "".join(f'<div><h3>{a}</h3><p>{b}</p><p class="small muted"><strong>Typically needed:</strong> {c}</p></div>' for a, b, c in SECTORS)
+    sec = "".join(f'<article class="card static">{photo("", pid, alt, cls="card-img", sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw")}<div class="card-body"><h3>{a}</h3><p>{b}</p><p class="first"><span class="tag">Typically needed</span>{c}</p></div></article>' for (a, b, c), (pid, alt) in zip(SECTORS, SECTOR_PHOTOS))
     mk = "".join(f'<tr><td data-h="Market">{a}</td><td data-h="Who">{b}</td><td data-h="Usual first engagement">{c}</td></tr>' for a, b, c in MARKETS)
     body = hero("Industries", "Industrial companies with technical, operational or cross-border complexity.",
-                "Industry matters, but the stronger signal is the type of problem: not enough coordination capacity, technical complexity, delivery across borders or several workstreams at once.") + f"""
+                "Industry matters, but the stronger signal is the type of problem: not enough coordination capacity, technical complexity, delivery across borders or several workstreams at once.",
+                img=("32845694", "Engineer with a tablet on a factory floor")) + f"""
 <section class="section">
   <div class="wrap">
     <div class="head"><h2>Sectors we focus on</h2><p class="muted">We expand into new sectors only once we can show relevant references, technical competence and quality standards.</p></div>
-    <div class="cols rule-top">{sec}</div>
+    <div class="cards">{sec}<a class="card cta-card" href="contact.html"><div class="card-body"><h3>Another sector?</h3><p>If your problem matches the patterns above, the sector matters less. Describe it and we will tell you honestly whether we can help.</p><p class="first">Describe your project →</p></div></a></div>
   </div>
 </section>
 <section class="section band">
@@ -105,7 +116,8 @@ def industries():
 
 def working():
     body = hero("Working with us", "Start small. Expand only when it helps you.",
-                "Clients do not have to commit to a large programme before seeing what we deliver. Every engagement has a defined scope, an owner and a way to accept the result.") + """
+                "Clients do not have to commit to a large programme before seeing what we deliver. Every engagement has a defined scope, an owner and a way to accept the result.",
+                img=("7964538", "Two colleagues reviewing a document together")) + f"""
 <section class="section">
   <div class="wrap">
     <div class="head"><h2>How a relationship usually grows</h2><p class="muted">Each step happens only if the previous one delivered measurable value.</p></div>
@@ -121,7 +133,7 @@ def working():
 <section class="section band">
   <div class="wrap">
     <div class="head"><h2>Engagement models</h2><p class="muted">Prices depend on scope, risk and delivery obligations and are agreed per engagement.</p></div>
-    <div class="cols rule-top">
+    <div class="models">
       <div><h3>Assessment</h3><p>A diagnosis, report and roadmap for a fixed fee. Useful on its own, even if you do not continue with us.</p></div>
       <div><h3>Project or phase</h3><p>Defined outputs, paid by phase or milestone. Changes go through an agreed change process.</p></div>
       <div><h3>Fixed support</h3><p>Reserved capacity for a period, for example a project manager two days a week on site plus a weekly remote review.</p></div>
@@ -133,11 +145,13 @@ def working():
 </section>
 <section class="section">
   <div class="wrap">
-    <div class="head"><h2>Every project has</h2><p class="muted">Whatever its size.</p></div>
-    <ul class="deliv">
+    <div class="split-photo">
+    {photo("", "5990030", "Project team meeting around a table", sizes="(max-width: 900px) 100vw, 45vw")}
+    <div><h2>Every project has</h2><p class="muted">Whatever its size.</p>
+    <ul class="checks two">
       <li>One commercial owner</li><li>One project sponsor on your side</li><li>One project manager on ours</li><li>One approved scope and budget</li>
       <li>One risk register</li><li>One escalation path</li><li>One way of communicating with you</li><li>One acceptance process</li>
-    </ul>
+    </ul></div></div>
   </div>
 </section>
 <section class="section ink">
@@ -151,10 +165,11 @@ def working():
 
 def trust():
     body = hero("Trust", "Your information, designs and decisions stay under control.",
-                "How we handle confidentiality, intellectual property, data, AI, quality and third parties. We only state what is in place; certifications will be listed when they are obtained.") + """
+                "How we handle confidentiality, intellectual property, data, AI, quality and third parties. We only state what is in place; certifications will be listed when they are obtained.",
+                img=("6804585", "Technician working on network equipment in a server rack")) + """
 <section class="section">
   <div class="wrap">
-    <div class="cols rule-top">
+    <div class="tiles">
       <div><h3>Confidentiality</h3><p>Confidentiality terms are agreed before you share technical documents. They also bind our employees, consultants, suppliers and subcontractors.</p></div>
       <div><h3>Your intellectual property</h3><p>Your drawings, specifications, data and custom code are governed by your contract. They never become Next Mind property by default and are never used for another client.</p></div>
       <div><h3>Our intellectual property</h3><p>General methods, reusable software modules and engineering libraries belong to the Group. Contracts state clearly what is yours and what we keep.</p></div>
@@ -177,11 +192,12 @@ def trust():
 
 def careers():
     body = hero("Careers", "Work across business, digital, engineering and production.",
-                "We are building teams in Italy, the UAE and India. People work on real industrial problems with clear responsibilities and colleagues in other disciplines.") + f"""
+                "We are building teams in Italy, the UAE and India. People work on real industrial problems with clear responsibilities and colleagues in other disciplines.",
+                img=("7698712", "International team in a meeting room")) + f"""
 <section class="section">
   <div class="wrap">
     <div class="head"><h2>Where people work</h2></div>
-    <div class="cols rule-top">
+    <div class="tiles">
       <div><h3>Solutions · Italy</h3><p>Account management, solution design, project management and technical-commercial proposals for European clients.</p></div>
       <div><h3>Consulting · UAE</h3><p>Strategy, market entry, PMO and transformation programmes for clients outside Europe.</p></div>
       <div><h3>Platform · India</h3><p>Software development, integration, data, AI and automation, cybersecurity and support.</p></div>
@@ -193,14 +209,16 @@ def careers():
 </section>
 <section class="section band">
   <div class="wrap">
-    <div class="head"><h2>How we hire</h2><p class="muted">The same standards in every country.</p></div>
-    <ol class="journey">
+    <div class="split-photo">
+    {photo("", "32845694", "Engineer with a tablet on a factory floor", sizes="(max-width: 900px) 100vw, 45vw")}
+    <div><h2>How we hire</h2><p class="muted">The same standards in every country.</p>
+    <ol class="journey compact">
       <li><h3>A written role</h3><p>Every opening states the outcomes expected in the first year and the skills that will be assessed, separating essential from trainable.</p></li>
       <li><h3>A practical exercise</h3><p>A work sample, case or trade test close to the real job, assessed by a specialist.</p></li>
       <li><h3>A structured panel</h3><p>The same core questions for every candidate. At least two trained assessors score independently before they discuss.</p></li>
       <li><h3>Clear communication</h3><p>Application confirmed within one business day and a status update at least every five business days while your process is active.</p></li>
     </ol>
-    <p style="margin-top:32px"><a class="btn" href="contact.html?service=careers">Send us your profile</a></p>
+    <p style="margin-top:32px"><a class="btn" href="contact.html?service=careers">Send us your profile</a></p></div></div>
   </div>
 </section>"""
     return page("careers.html", "Careers", "Careers at Next Mind Group across Italy, the UAE and India.", body)
@@ -211,7 +229,8 @@ def contact():
             ("not-sure", "Not sure yet"), ("careers", "Apply for a job")]
     choices = "".join(f'<label class="choice"><input type="radio" name="service" value="{v}" required> {t}</label>' for v, t in opts)
     body = hero("Start a project", "Describe the result you need.",
-                "Five questions. You will get a structured brief you can copy or download and send to us, so the first conversation starts from your facts.") + f"""
+                "Five questions. You will get a structured brief you can copy or download and send to us, so the first conversation starts from your facts.",
+                img=("7651557", "Two colleagues discussing documents at a desk")) + f"""
 <section class="section">
   <div class="wrap">
     <form class="form" id="brief-form" novalidate>

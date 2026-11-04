@@ -1,5 +1,9 @@
 """How we work: the six-phase execution framework (from the Consulting UAE framework)."""
-from layout import page
+from layout import page, photo
+
+PHOTOS = [("7654493", "Reviewing charts and figures on paper"), ("39205088", "Team discussing a strategy sketched on a board"),
+          ("6804093", "Planning board with tasks in columns"), ("32845690", "Engineers checking work on a tablet in a factory"),
+          ("577210", "Dashboard with indicators on a laptop"), ("17724731", "Team reviewing improvement ideas on a whiteboard")]
 
 # phase: (name, summary, [(step, you provide, we do, you receive)])
 PHASES = [
@@ -108,11 +112,11 @@ def build():
 </div></details>""" for s, a, b, c in steps)
         blocks.append(f"""
 <section class="phase{' first' if i == 1 else ''}" id="{name.lower()}" aria-labelledby="ph-{i}">
-  <div><span class="num" aria-hidden="true">{i}</span><h2 id="ph-{i}">{name}</h2><p class="muted">{summary}</p></div>
+  <div><span class="num" aria-hidden="true">{i}</span><h2 id="ph-{i}">{name}</h2><p class="muted">{summary}</p>{photo("", PHOTOS[i-1][0], PHOTOS[i-1][1], cls="phase-img", sizes="(max-width: 860px) 100vw, 30vw")}</div>
   <div>{det}</div>
 </section>""")
     from pages_home import PHASES as SHORT
-    toc = "".join(f'<li><h3><a href="#{n.lower()}">{n}</a></h3><p>{t}</p></li>' for n, t in SHORT)
+    toc = "".join(f'<li><a href="#{n.lower()}"><span>{i}</span>{n}</a></li>' for i, (n, t) in enumerate(SHORT, 1))
     body = f"""
 <section class="page-hero">
   <div class="wrap">
@@ -121,9 +125,7 @@ def build():
     <p class="lead">Each phase lists what we ask from you, what we do with it and the documents you receive. Nothing moves to the next phase until its outputs are reviewed with you.</p>
   </div>
 </section>
-<section class="section band" style="padding-top:clamp(48px,6vw,80px)">
-  <div class="wrap"><ol class="phases">{toc}</ol></div>
-</section>
+<nav class="phase-nav" aria-label="Phases"><div class="wrap"><ol>{toc}</ol></div></nav>
 <div class="wrap" style="padding-bottom:var(--space)">{''.join(blocks)}</div>
 <section class="section ink">
   <div class="wrap cta">

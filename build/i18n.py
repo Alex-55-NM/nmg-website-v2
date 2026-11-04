@@ -39,7 +39,12 @@ def strings(page):
             if m: out.append(norm(html.unescape(m.group(1))))
     return out
 
+AUTO = [(re.compile(r"^Pexels photo (\d+)$"), r"Foto Pexels \1")]
+
 def _lookup(table, s, missing):
+    for rx, rep in AUTO:
+        if rx.match(s):
+            return rx.sub(rep, s)
     t = table.get(s)
     if t is None:
         missing.add(s)

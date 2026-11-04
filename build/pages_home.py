@@ -1,5 +1,6 @@
 """Home page."""
 from layout import page, photo
+from pages_services import BY
 
 ROUTE_WIDE = """
 <svg class="route route-wide" viewBox="0 0 850 400" role="img" aria-labelledby="route-t route-d">
@@ -67,11 +68,11 @@ PHASES = [
 
 def build():
     offers = "".join(f"""
-<div class="offer">
-  <h3><a href="services/{slug}.html">{name}</a></h3>
-  <p>{line}</p>
-  <p class="first">{first}<span>{gets}</span></p>
-</div>""" for slug, name, line, first, gets in OFFERS)
+<a class="card" href="services/{slug}.html">
+  {photo("", BY[slug]["photo"][0], BY[slug]["photo"][1], cls="card-img", sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw")}
+  <div class="card-body"><h3>{name}</h3><p>{line}</p>
+  <p class="first"><span class="tag">First deliverable</span>{first}</p></div>
+</a>""" for slug, name, line, first, gets in OFFERS)
     phases = "".join(f"<li><h3>{n}</h3><p>{t}</p></li>" for n, t in PHASES)
     body = f"""
 <section class="hero">
@@ -91,8 +92,7 @@ def build():
       <h2>Start with one defined piece of work.</h2>
       <p class="muted">Each service can be bought on its own. The first engagement has a fixed scope and a deliverable you can judge, so you can test how we work before committing to more.</p>
     </div>
-    <div class="col-labels" aria-hidden="true"><span>Service</span><span>When it helps</span><span>What you get first</span></div>
-    <div class="offers">{offers}</div>
+    <div class="cards">{offers}</div>
   </div>
 </section>
 
@@ -113,25 +113,22 @@ def build():
       <h2>Who does what.</h2>
       <p class="lead">The Holding owns and governs. Consulting and Solutions own the client relationship. Platform, Engineering &amp; Production and Trade &amp; Logistics deliver.</p>
     </div>
-    <div class="roles">
-      <div class="role"><p class="where">Italy</p><h3>Next Mind Solutions</h3><ul><li>Your interface if you are in Europe</li><li>Proposal, project coordination and acceptance</li><li>European contracting entity when you need one</li></ul></div>
-      <div class="role"><p class="where">United Arab Emirates</p><h3>Next Mind Consulting</h3><ul><li>Your interface outside Europe: GCC, Middle East, Africa</li><li>Strategy, PMO and international development</li><li>Leads proposals that span several units</li></ul></div>
-      <div class="role"><p class="where">India</p><h3>Three delivery centres</h3><ul><li><strong>Platform</strong>: software, AI, automation, integration</li><li><strong>Engineering &amp; Production</strong>: CAD, industrialisation, prototypes, manufacturing</li><li><strong>Trade &amp; Logistics</strong>: sourcing, export documents, freight coordination</li></ul></div>
+    <div class="places">
+      <article class="place">{photo("", "409127", "Milan, Italy, seen from above", cls="place-img", sizes="(max-width: 960px) 100vw, 33vw")}<div class="place-body"><p class="where">Italy</p><h3>Next Mind Solutions</h3><ul><li>Your interface if you are in Europe</li><li>Proposal, project coordination and acceptance</li><li>European contracting entity when you need one</li></ul></div></article>
+      <article class="place">{photo("", "17034947", "Dubai skyline across the water", cls="place-img", sizes="(max-width: 960px) 100vw, 33vw")}<div class="place-body"><p class="where">United Arab Emirates</p><h3>Next Mind Consulting</h3><ul><li>Your interface outside Europe: GCC, Middle East, Africa</li><li>Strategy, PMO and international development</li><li>Leads proposals that span several units</li></ul></div></article>
+      <article class="place">{photo("", "11505497", "Mumbai skyline", cls="place-img", sizes="(max-width: 960px) 100vw, 33vw")}<div class="place-body"><p class="where">India</p><h3>Three delivery centres</h3><ul><li><strong>Platform</strong>: software, AI, automation, integration</li><li><strong>Engineering &amp; Production</strong>: CAD, industrialisation, prototypes, manufacturing</li><li><strong>Trade &amp; Logistics</strong>: sourcing, export documents, freight coordination</li></ul></div></article>
     </div>
     <p class="note" style="margin-top:32px">Next Mind Holding in Cyprus owns the brand, methods and shared technology and sets common rules for every company. A North American hub is planned once demand justifies it. <a href="group.html">How the Group is organised</a></p>
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="head"><h2>Rules we work by.</h2><p class="muted">They decide who you talk to, who answers for the result and what happens to your information.</p></div>
-    <ul class="principles">
-      <li><strong>One client, one commercial owner.</strong><span>No other unit quotes or contacts you outside the agreed process.</span></li>
-      <li><strong>One project, one sponsor, one scope.</strong><span>One budget, one risk register, one escalation path and one acceptance process.</span></li>
-      <li><strong>Evidence before release.</strong><span>Drawings, batches, software and shipments pass agreed checks before they reach you.</span></li>
-      <li><strong>Your data and designs stay yours.</strong><span>Ownership and use are set in your contract, never assumed by us.</span></li>
-    </ul>
-  </div>
+<section class="photo-band">
+  {photo("", "14646107", "Two people reviewing and signing a document", cls="band-img", sizes="100vw")}
+  <div class="wrap"><div class="band-text">
+    <h2>One accountable lead, from the first meeting to the signed acceptance.</h2>
+    <p>Confidentiality, ownership of your designs and the checks before each release are agreed in writing before work starts.</p>
+    <a class="btn light" href="trust.html">How we protect your work</a>
+  </div></div>
 </section>
 
 <section class="section band">

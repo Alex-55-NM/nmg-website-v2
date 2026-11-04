@@ -2,7 +2,7 @@
 from layout import page, photo, esc
 
 S = [
- dict(slug="strategy-growth", name="Strategy &amp; Growth", photo=("39205088", "Team discussing a strategy sketched on a board"),
+ dict(slug="strategy-growth", photo2=("7580769", "Sales and market charts reviewed on paper"), name="Strategy &amp; Growth", photo=("39205088", "Team discussing a strategy sketched on a board"),
   h1="Decide where to grow before you commit the organisation.",
   lead="Market analysis, go-to-market, portfolio and new-country entry for industrial companies, with a roadmap someone is responsible for carrying out.",
   fit=["You want to export or enter a new country, but have no validated target segment or channel.",
@@ -17,7 +17,7 @@ S = [
   who=[("Solutions · Italy", "Leads for European clients and coordinates the work."), ("Consulting · UAE", "Leads outside Europe and contributes analysis and international development.")],
   start="Market and growth assessment: two to three candidate markets or segments compared, with a recommendation to enter, wait or drop.",
   related=["digital-operations", "integrated-programmes"]),
- dict(slug="digital-operations", name="Digital Operations", photo=("442152", "Field engineer working on a laptop beside network cabling"),
+ dict(slug="digital-operations", photo2=("32529341", "Operator monitoring production data on control-room screens"), name="Digital Operations", photo=("442152", "Field engineer working on a laptop beside network cabling"),
   h1="One controlled workflow instead of spreadsheets and email approvals.",
   lead="Process assessment, workflow design, integration, automation and AI, built with the people who do the work and measured after go-live.",
   fit=["The same data is typed into several systems or spreadsheets.",
@@ -32,7 +32,7 @@ S = [
   who=[("Solutions · Italy", "Leads requirements and adoption with your team."), ("Platform · India", "Develops, integrates and supports the software.")],
   start="Workflow diagnostic and pilot: one process mapped end to end, a pilot boundary and the criteria that decide whether to roll it out.",
   related=["integrated-programmes", "production"]),
- dict(slug="engineering-industrialisation", name="Engineering &amp; Industrialisation", photo=("9616959", "Hands working over a set of technical drawings"),
+ dict(slug="engineering-industrialisation", photo2=("19895919", "Engineer working in CAD at a workstation"), name="Engineering &amp; Industrialisation", photo=("9616959", "Hands working over a set of technical drawings"),
   h1="From a physical part or a concept to a design you can manufacture.",
   lead="Reverse engineering, CAD, drawings, bills of materials, design for manufacture and assembly, prototypes and validation, released as one controlled package.",
   fit=["A part must be reproduced, but the only reference is a worn sample.",
@@ -47,7 +47,7 @@ S = [
   who=[("Solutions · Italy", "Aligns requirements and acceptance with your technical authority."), ("Engineering & Production · India", "Develops the technical solution and prototypes.")],
   start="Engineering feasibility or a single-part release: one component taken to a verified drawing set and bill of materials.",
   related=["production", "trade-logistics"]),
- dict(slug="production", name="Production", photo=("8865187", "CNC machine spindle with coolant lines"),
+ dict(slug="production", photo2=("16630111", "Measuring a part with a caliper"), name="Production", photo=("8865187", "CNC machine spindle with coolant lines"),
   h1="A confirmed route from released design to inspected batch.",
   lead="Manufacturing readiness, process routes, qualified capacity, machining, fabrication, assembly, inspection and ramp-up, with records that support acceptance.",
   fit=["A validated prototype must become a repeatable first batch.",
@@ -62,7 +62,7 @@ S = [
   who=[("Solutions · Italy", "Coordinates timing and acceptance for European clients."), ("Engineering & Production · India", "Manufactures or activates qualified capacity.")],
   start="Manufacturing readiness review: the gaps between your design and a repeatable batch, listed and assigned before any material is bought.",
   related=["engineering-industrialisation", "trade-logistics"]),
- dict(slug="trade-logistics", name="Trade &amp; Logistics", photo=("9850156", "Port crane handling cargo at a quay"),
+ dict(slug="trade-logistics", photo2=("6170452", "Checking shipment documents on a clipboard"), name="Trade &amp; Logistics", photo=("9850156", "Port crane handling cargo at a quay"),
   h1="Goods, documents and suppliers on one visible route.",
   lead="Supply planning, supplier follow-up, export documents and freight coordination with competent operators, from origin to the agreed delivery terms.",
   fit=["Several suppliers must feed one delivery and their dates do not agree.",
@@ -77,7 +77,7 @@ S = [
   who=[("Trade & Logistics · India", "Coordinates the flows, documents and freight partners."), ("Solutions · Italy", "Remains your contact for European deliveries and destination requirements.")],
   start="Shipment and sourcing plan for one order: milestones, documents and who is responsible at each handover.",
   related=["production", "integrated-programmes"]),
- dict(slug="integrated-programmes", name="Integrated Programmes", photo=("7691694", "Project team reviewing drawings around a table"),
+ dict(slug="integrated-programmes", photo2=("6814338", "Reviewing handover documents together"), name="Integrated Programmes", photo=("7691694", "Project team reviewing drawings around a table"),
   h1="Several workstreams, one plan, one acceptance.",
   lead="When the outcome needs engineering, digital, production and supply together, one programme lead connects them through shared milestones, interfaces and acceptance criteria.",
   fit=["Each team has a plan, but the plans do not connect.",
@@ -97,7 +97,7 @@ BY = {s["slug"]: s for s in S}
 
 def service_page(s):
     fit = "".join(f"<li>{x}</li>" for x in s["fit"])
-    do = "".join(f"<div><h3>{a}</h3><p>{b}</p></div>" for a, b in s["do"])
+    do = "".join(f'<li><span class="step-no">{i:02d}</span><h3>{a}</h3><p>{b}</p></li>' for i, (a, b) in enumerate(s["do"], 1))
     get = "".join(f"<li>{x}</li>" for x in s["get"])
     who = "".join(f'<div class="node"><p class="where">{esc(a)}</p><p>{esc(b)}</p></div>' for a, b in s["who"])
     rel = " · ".join(f'<a href="{r}.html">{BY[r]["name"]}</a>' for r in s["related"])
@@ -121,13 +121,14 @@ def service_page(s):
 <section class="section band">
   <div class="wrap">
     <div class="head"><h2>What we do</h2><p class="muted">You can buy one of these activities or several connected ones. The scope is agreed with you before work starts.</p></div>
-    <div class="cols rule-top" style="--n:4">{do}</div>
+    <ol class="steps4">{do}</ol>
   </div>
 </section>
 <section class="section">
-  <div class="wrap">
-    <div class="head"><h2>What you receive</h2><p class="muted">Documents you can review, keep and use after we hand over. Results such as time or cost savings are measured against your own starting point.</p></div>
-    <ul class="deliv">{get}</ul>
+  <div class="wrap split-photo">
+    {photo('../', s['photo2'][0], s['photo2'][1], sizes="(max-width: 900px) 100vw, 45vw")}
+    <div><h2>What you receive</h2><p class="muted">Documents you can review, keep and use after we hand over. Results such as time or cost savings are measured against your own starting point.</p>
+    <ul class="checks">{get}</ul></div>
   </div>
 </section>
 <section class="section band">
@@ -148,11 +149,11 @@ def service_page(s):
 
 def overview():
     rows = "".join(f"""
-<div class="offer">
-  <h3><a href="{s['slug']}.html">{s['name']}</a></h3>
-  <p>{s['lead']}</p>
-  <p class="first">{s['start'].split(':')[0]}<span>{s['start'].split(':',1)[1].strip()}</span></p>
-</div>""" for s in S)
+<a class="card" href="{s['slug']}.html">
+  {photo("../", s["photo"][0], s["photo"][1], cls="card-img", sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw")}
+  <div class="card-body"><h3>{s['name']}</h3><p>{s['lead']}</p>
+  <p class="first"><span class="tag">{s['start'].split(':')[0]}</span>{s['start'].split(':',1)[1].strip()}</p></div>
+</a>""" for s in S)
     body = f"""
 <section class="page-hero">
   <div class="wrap">
@@ -163,8 +164,7 @@ def overview():
 </section>
 <section class="section">
   <div class="wrap">
-    <div class="col-labels" aria-hidden="true"><span>Service</span><span>What it covers</span><span>Usual first engagement</span></div>
-    <div class="offers">{rows}</div>
+    <div class="cards">{rows}</div>
   </div>
 </section>
 <section class="section band">

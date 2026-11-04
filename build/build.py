@@ -37,7 +37,7 @@ def main():
         seen, todo = set(), []
         for html in pages.values():
             for st in i18n.strings(html):
-                if st not in seen and st not in table:
+                if st not in seen and st not in table and not any(rx.match(st) for rx, _ in i18n.AUTO):
                     seen.add(st); todo.append(st)
         out = os.path.join(HERE, "i18n", "missing_it.txt")
         open(out, "w", encoding="utf-8").write("\n".join(todo) + "\n")
