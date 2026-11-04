@@ -1,0 +1,20 @@
+name: Validate site
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rebuild pages and check they match the committed site
+        run: |
+          python3 build/build.py
+          git diff --exit-code -- site
+      - name: Check local links
+        run: python3 scripts/check_links.py
+      - name: Check JavaScript syntax
+        run: node --check site/assets/js/site.js
