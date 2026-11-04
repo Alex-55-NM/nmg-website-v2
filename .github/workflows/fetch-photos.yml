@@ -1,0 +1,29 @@
+name: Self-host Pexels photos
+# Downloads the photos listed in build/photo_ids.txt and commits them.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - build/photo_ids.txt
+      - scripts/fetch_pexels_photos.py
+permissions:
+  contents: write
+concurrency:
+  group: fetch-photos
+  cancel-in-progress: false
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download photos
+        run: python3 scripts/fetch_pexels_photos.py
+      - name: Commit photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add -A site/assets/img/photos
+          if git diff --cached --quiet; then echo "No photo changes"; exit 0; fi
+          git commit -m "Self-host the photos listed in build/photo_ids.txt"
+          git push

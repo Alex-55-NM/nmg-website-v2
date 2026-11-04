@@ -1,0 +1,8 @@
+# Pexels photo IDs used by the site, one per line. The "Self-host Pexels photos"
+# workflow downloads each at 800 and 1600 px into site/assets/img/photos/.
+39205088
+442152
+9616959
+8865187
+9850156
+7691694
