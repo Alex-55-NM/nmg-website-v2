@@ -274,3 +274,6 @@ fieldset.field{border:0;padding:0;margin:0}
 @media print{.site-header,.site-footer,.menu{display:none}body{background:#fff}}
 .route-tall{display:none}
 @media (max-width:640px){.route-wide{display:none}.route-tall{display:block;max-width:360px}}
+.nav .lang-switch{font-weight:700;margin-left:6px;border:1.5px solid var(--rule);padding:6px 10px}
+.nav .lang-switch:hover{border-color:var(--ink);background:transparent}
+.menu-panel .lang-switch{font-weight:700}

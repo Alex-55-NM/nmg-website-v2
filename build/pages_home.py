@@ -144,6 +144,6 @@ def build():
   </div>
 </section>
 """
-    return page("index.html", "Next Mind Group | From industrial need to accepted result",
+    return page("index.html", "From industrial need to accepted result",
                 "Next Mind Group connects strategy, software, engineering, production and international trade through one accountable interface.",
                 body, current=None)

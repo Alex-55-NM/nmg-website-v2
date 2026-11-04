@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avvia un progetto | Next Mind Group</title>
+<meta name="description" content="Descrivete il risultato che vi serve e preparate un brief strutturato per Next Mind Group.">
+<meta property="og:title" content="Avvia un progetto | Next Mind Group">
+<meta property="og:description" content="Descrivete il risultato che vi serve e preparate un brief strutturato per Next Mind Group.">
+<meta property="og:type" content="website">
+<link rel="alternate" hreflang="en" href="../contact.html">
+<link rel="alternate" hreflang="it" href="contact.html">
+<link rel="alternate" hreflang="x-default" href="../contact.html">
+<meta name="theme-color" content="#0A1A33">
+<link rel="icon" href="../assets/img/favicon-official.png">
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="../assets/img/next-mind-logo-2026.webp" width="160" height="40" alt="Next Mind Group, home"></a>
+    <nav class="nav" aria-label="Principale"><a href="services/index.html">Servizi</a><a href="approach.html">Come lavoriamo</a><a href="industries.html">Settori</a><a href="group.html">Il Gruppo</a><a href="working-with-us.html">Lavorare con noi</a><a href="trust.html">Fiducia</a><a class="lang-switch" href="../contact.html" hreflang="en" lang="en" aria-label="English">EN</a><a class="btn" href="contact.html">Avvia un progetto</a></nav>
+    <details class="menu"><summary>Menu</summary><div class="menu-panel"><a href="services/index.html">Servizi</a><a href="approach.html">Come lavoriamo</a><a href="industries.html">Settori</a><a href="group.html">Il Gruppo</a><a href="working-with-us.html">Lavorare con noi</a><a href="trust.html">Fiducia</a><a class="lang-switch" href="../contact.html" hreflang="en" lang="en">English</a><a class="btn" href="contact.html">Avvia un progetto</a></div></details>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero"><div class="wrap"><p class="crumbs"><a href="index.html">Home</a> / Avvia un progetto</p><h1>Descrivete il risultato che vi serve.</h1><p class="lead">Cinque domande. Riceverete un brief strutturato da copiare o scaricare e inviarci, così il primo incontro parte dai vostri dati.</p></div></section>
+<section class="section">
+  <div class="wrap">
+    <form class="form" id="brief-form" novalidate>
+      <fieldset class="field"><legend>Di cosa avete bisogno?</legend><div class="choices"><label class="choice"><input type="radio" name="service" value="strategy-growth" required> Crescere in un mercato</label><label class="choice"><input type="radio" name="service" value="digital-operations" required> Digitalizzare un processo</label><label class="choice"><input type="radio" name="service" value="engineering-industrialisation" required> Progettare o riprogettare un pezzo</label><label class="choice"><input type="radio" name="service" value="production" required> Produrre un lotto</label><label class="choice"><input type="radio" name="service" value="trade-logistics" required> Approvvigionare o spedire merci</label><label class="choice"><input type="radio" name="service" value="integrated-programmes" required> Più di queste cose insieme</label><label class="choice"><input type="radio" name="service" value="not-sure" required> Non lo so ancora</label><label class="choice"><input type="radio" name="service" value="careers" required> Candidarsi per un lavoro</label></div><p class="error" id="err-service" hidden>Scegliete di cosa avete bisogno.</p></fieldset>
+      <div class="field"><label for="f-result">Il risultato che vi serve<span class="hint">Cosa dovrà essere vero quando il lavoro sarà finito?</span></label><textarea id="f-result" name="result" required></textarea><p class="error" id="err-result" hidden>Descrivete il risultato in una o due frasi.</p></div>
+      <div class="field"><label for="f-have">Cosa esiste già<span class="hint">Disegni, campioni, dati, sistemi, fornitori, studi precedenti.</span></label><textarea id="f-have" name="have"></textarea></div>
+      <div class="field"><label for="f-when">Quando vi serve</label><select id="f-when" name="when"><option value="">Scegliete</option><option>Entro un mese</option><option>Tra uno e tre mesi</option><option>Tra tre e sei mesi</option><option>Oltre sei mesi</option><option>Nessuna data fissa</option></select></div>
+      <div class="cols" style="--n:2;gap:22px">
+        <div class="field"><label for="f-name">Il vostro nome</label><input id="f-name" name="name" autocomplete="name"></div>
+        <div class="field"><label for="f-company">Azienda e Paese</label><input id="f-company" name="company" autocomplete="organization"></div>
+      </div>
+      <div><button class="btn" type="submit">Prepara il mio brief</button></div>
+    </form>
+    <div class="brief" id="brief" hidden tabindex="-1">
+      <h2 style="font-size:28px">Il vostro brief</h2>
+      <pre id="brief-text"></pre>
+      <div class="actions"><button class="btn" type="button" id="copy-brief">Copia il brief</button><button class="btn line" type="button" id="download-brief">Scarica come testo</button><button class="btn line" type="button" id="edit-brief">Modifica le risposte</button></div>
+      <p class="small muted" id="copy-status" role="status" style="margin-top:12px"></p>
+    </div>
+    <p class="note" style="margin-top:40px">Questo modulo non è ancora collegato a una casella email: le vostre risposte restano nel vostro browser. Inviate il brief al vostro contatto Next Mind. L’invio diretto sarà aggiunto quando l’indirizzo di contatto del Gruppo sarà confermato.</p>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="../assets/img/next-mind-logo-on-dark-2026.webp" width="160" height="40" alt="Next Mind Group">
+        <p>Capacità di strategia, digitale, ingegneria, produzione e commercio, coordinate in un unico percorso dalla vostra esigenza al risultato accettato.</p>
+      </div>
+      <div><h2>Servizi</h2><ul>
+        <li><a href="services/strategy-growth.html">Strategy &amp; Growth</a></li>
+        <li><a href="services/digital-operations.html">Digital Operations</a></li>
+        <li><a href="services/engineering-industrialisation.html">Engineering &amp; Industrialisation</a></li>
+        <li><a href="services/production.html">Production</a></li>
+        <li><a href="services/trade-logistics.html">Trade &amp; Logistics</a></li>
+        <li><a href="services/integrated-programmes.html">Integrated Programmes</a></li>
+      </ul></div>
+      <div><h2>Azienda</h2><ul>
+        <li><a href="approach.html">Come lavoriamo</a></li>
+        <li><a href="group.html">Il Gruppo</a></li>
+        <li><a href="industries.html">Settori</a></li>
+        <li><a href="careers.html">Carriere</a></li>
+      </ul></div>
+      <div><h2>Collabora</h2><ul>
+        <li><a href="working-with-us.html">Lavorare con noi</a></li>
+        <li><a href="trust.html">Fiducia e dati</a></li>
+        <li><a href="contact.html">Avvia un progetto</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Next Mind Group. Connecting minds, building futures.</span> <span>Foto: Pexels License, vedi <a href="credits.html">crediti</a>.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

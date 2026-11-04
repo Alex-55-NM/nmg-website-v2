@@ -24,6 +24,19 @@
     if (radio) radio.checked = true;
   }
 
+  // Words used in the brief and status messages, in the page language.
+  var T = {
+    en: { title: 'Next Mind Group: project brief', need: 'Need: ', result: 'Result needed:', have: 'What already exists:',
+          when: 'When: ', name: 'Name: ', company: 'Company and country: ', none: 'Not stated', on: 'Prepared on ',
+          copied: 'Brief copied.', blocked: 'Copying is blocked in this browser. Select the text and copy it.',
+          downloaded: 'Brief downloaded.', file: 'next-mind-project-brief.txt' },
+    it: { title: 'Next Mind Group: brief di progetto', need: 'Esigenza: ', result: 'Risultato richiesto:', have: 'Cosa esiste già:',
+          when: 'Quando: ', name: 'Nome: ', company: 'Azienda e Paese: ', none: 'Non indicato', on: 'Preparato il ',
+          copied: 'Brief copiato.', blocked: 'Questo browser blocca la copia. Selezionate il testo e copiatelo.',
+          downloaded: 'Brief scaricato.', file: 'next-mind-brief-di-progetto.txt' }
+  };
+  var t = T[(document.documentElement.lang || 'en').slice(0, 2)] || T.en;
+
   function show(id, on) { var el = document.getElementById(id); if (el) el.hidden = !on; }
 
   form.addEventListener('submit', function (e) {
@@ -36,21 +49,21 @@
     if (!result) { form.result.focus(); return; }
     var label = service.parentNode.textContent.trim();
     var lines = [
-      'Next Mind Group: project brief',
+      t.title,
       '',
-      'Need: ' + label,
+      t.need + label,
       '',
-      'Result needed:',
+      t.result,
       result,
       '',
-      'What already exists:',
-      form.have.value.trim() || 'Not stated',
+      t.have,
+      form.have.value.trim() || t.none,
       '',
-      'When: ' + (form.when.value || 'Not stated'),
-      'Name: ' + (form.name.value.trim() || 'Not stated'),
-      'Company and country: ' + (form.company.value.trim() || 'Not stated'),
+      t.when + (form.when.value || t.none),
+      t.name + (form.name.value.trim() || t.none),
+      t.company + (form.company.value.trim() || t.none),
       '',
-      'Prepared on ' + new Date().toISOString().slice(0, 10)
+      t.on + new Date().toISOString().slice(0, 10)
     ];
     briefText.textContent = lines.join('\n');
     form.hidden = true;
@@ -65,8 +78,8 @@
 
   document.getElementById('copy-brief').addEventListener('click', function () {
     var text = briefText.textContent;
-    var done = function () { status.textContent = 'Brief copied.'; };
-    var fail = function () { status.textContent = 'Copying is blocked in this browser. Select the text and copy it.'; };
+    var done = function () { status.textContent = t.copied; };
+    var fail = function () { status.textContent = t.blocked; };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fail);
     else fail();
   });
@@ -75,9 +88,9 @@
     var blob = new Blob([briefText.textContent], { type: 'text/plain' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'next-mind-project-brief.txt';
+    a.download = t.file;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
-    status.textContent = 'Brief downloaded.';
+    status.textContent = t.downloaded;
   });
 })();

@@ -39,6 +39,9 @@ def page(path, title, description, body, current=None):
 <meta property="og:title" content="{esc(full_title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:type" content="website">
+<link rel="alternate" hreflang="en" href="{pre}{path}">
+<link rel="alternate" hreflang="it" href="{pre}it/{path}">
+<link rel="alternate" hreflang="x-default" href="{pre}{path}">
 <meta name="theme-color" content="#0A1A33">
 <link rel="icon" href="{pre}assets/img/favicon-official.png">
 <link rel="preload" href="{pre}assets/fonts/ibm-plex-sans-var.woff" as="font" type="font/woff" crossorigin>
@@ -50,8 +53,8 @@ def page(path, title, description, body, current=None):
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="{pre}index.html"><img src="{pre}assets/img/next-mind-logo-2026.webp" width="160" height="40" alt="Next Mind Group, home"></a>
-    <nav class="nav" aria-label="Main">{nav}<a class="btn" href="{pre}contact.html">Start a project</a></nav>
-    <details class="menu"><summary>Menu</summary><div class="menu-panel">{menu}<a class="btn" href="{pre}contact.html">Start a project</a></div></details>
+    <nav class="nav" aria-label="Main">{nav}<a class="lang-switch" href="{pre}it/{path}" hreflang="it" lang="it" aria-label="Italiano">IT</a><a class="btn" href="{pre}contact.html">Start a project</a></nav>
+    <details class="menu"><summary>Menu</summary><div class="menu-panel">{menu}<a class="lang-switch" href="{pre}it/{path}" hreflang="it" lang="it">Italiano</a><a class="btn" href="{pre}contact.html">Start a project</a></div></details>
   </div>
 </header>
 <main id="main">

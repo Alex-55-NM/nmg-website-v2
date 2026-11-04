@@ -8,6 +8,7 @@ sys.path.insert(0, HERE)
 SITE = os.path.join(os.path.dirname(HERE), "site")
 
 import pages_home, pages_approach, pages_services, pages_other as o
+import i18n
 
 def write(path, html):
     full = os.path.join(SITE, path)
@@ -31,7 +32,23 @@ def main():
     pages.update(pages_services.build())
     for path, html in pages.items():
         write(path, html)
-    print(f"Built {len(pages)} pages into {SITE}")
+    table = i18n.load()
+    if "--extract" in sys.argv:
+        seen, todo = set(), []
+        for html in pages.values():
+            for st in i18n.strings(html):
+                if st not in seen and st not in table:
+                    seen.add(st); todo.append(st)
+        out = os.path.join(HERE, "i18n", "missing_it.txt")
+        open(out, "w", encoding="utf-8").write("\n".join(todo) + "\n")
+        print(f"{len(todo)} strings without Italian translation written to {out}")
+        return
+    missing = set()
+    for path, html in pages.items():
+        write("it/" + path, i18n.translate(path, html, table, missing))
+    if missing:
+        sys.exit(f"{len(missing)} strings have no Italian translation; run build.py --extract")
+    print(f"Built {len(pages)} pages in English and Italian into {SITE}")
 
 if __name__ == "__main__":
     main()

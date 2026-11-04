@@ -10,9 +10,11 @@ A second, independent website for Next Mind Group, built from scratch from the G
 - **Honest by default**: no client logos, metrics or certifications that are not in place; the contact form prepares a brief instead of pretending to send it.
 - **Visual identity**: IBM Plex Sans (one family, condensed for headings), drafting-paper background, navy ink, cobalt route line. Fonts and photos are self-hosted.
 
-## Pages (17, English)
+## Pages (17, in English and Italian)
 
 Home, How we work, Services (overview + 6 service pages), Industries, The Group, Working with us, Trust, Careers, Start a project, Credits, 404.
+
+The Italian pages are in `site/it/` and are generated from the English ones: every text, alt text and meta description is looked up in `build/i18n/it.tsv` (`English<TAB>Italian`). The build stops if a string has no translation; `python3 build/build.py --extract` lists the missing ones in `build/i18n/missing_it.txt`. The header has an IT / EN switch and each page declares its other-language version with `hreflang`.
 
 ## Structure
 
@@ -21,6 +23,9 @@ build/            Python generator: page content and templates
   build.py        entry point: python3 build/build.py
   layout.py       header, footer, shared helpers
   pages_*.py      page content
+  i18n.py         builds site/it/ from the English pages
+  i18n/it.tsv     Italian translations
+  photo_ids.txt   Pexels photos to self-host (fetched by a workflow)
 site/             generated website (this is what gets published)
   assets/css/site.css
   assets/js/site.js
@@ -46,4 +51,4 @@ Run the "Deploy to GitHub Pages" workflow from the Actions tab (enable Pages wit
 ## Open points
 
 - The contact form is not connected to an inbox; it builds a brief the visitor copies or downloads. Connect it once the Group contact address and form backend are decided.
-- English only for now.
+- English and Italian only. Other languages can be added with one more `.tsv` file per language.
